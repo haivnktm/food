@@ -6,76 +6,121 @@
   <title>Random Món Ăn Mỗi Ngày</title>
   <style>
     :root {
-      --primary: #ff7f50;
-      --secondary: #ffb38a;
-      --bg: #fff8f3;
-      --text: #333;
+      --primary: #ff6b35;
+      --secondary: #ff9f1c;
+      --bg: #fff3e8;
+      --text: #2b2b2b;
+      --card-bg: #ffffff;
     }
 
     body {
       font-family: "Segoe UI", sans-serif;
       background: var(--bg);
       margin: 0;
-      padding: 0;
+      padding: 20px 0;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
       min-height: 100vh;
     }
 
     .container {
-      width: 90%;
-      max-width: 480px;
-      background: white;
-      padding: 28px;
-      border-radius: 18px;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+      width: 92%;
+      max-width: 520px;
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 22px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
       text-align: center;
-      border: 3px solid var(--secondary);
+      border: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative circle */
+    .container::before {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      background: var(--secondary);
+      border-radius: 50%;
+      top: -60px;
+      right: -60px;
+      opacity: 0.3;
+    }
+
+    .container::after {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: var(--primary);
+      border-radius: 50%;
+      bottom: -40px;
+      left: -40px;
+      opacity: 0.25;
     }
 
     h1 {
       margin-top: 0;
       color: var(--primary);
+      font-size: 28px;
+      font-weight: 800;
+    }
+
+    .subtitle {
+      color: #444;
+      font-size: 15px;
+      margin-bottom: 20px;
     }
 
     .result-box {
-      margin-top: 18px;
-      padding: 18px;
+      margin-top: 22px;
+      padding: 20px;
       background: var(--secondary);
-      border-radius: 14px;
+      border-radius: 16px;
       color: #fff;
-      font-size: 17px;
+      font-size: 18px;
       text-align: left;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      animation: fadeIn 0.3s ease;
     }
 
     .result-box p {
-      margin: 6px 0;
+      margin: 8px 0;
       font-weight: 600;
     }
 
     button {
       width: 100%;
-      margin-top: 18px;
-      padding: 14px;
+      margin-top: 22px;
+      padding: 15px;
       font-size: 18px;
       border: none;
-      border-radius: 12px;
+      border-radius: 14px;
       background: var(--primary);
       color: #fff;
       font-weight: bold;
       cursor: pointer;
       transition: 0.25s;
+      box-shadow: 0 4px 14px rgba(255, 107, 53, 0.35);
     }
 
     button:hover {
-      background: #ff6a36;
+      background: #ff5a1a;
+      transform: translateY(-2px);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @media (max-width: 480px) {
-      h1 { font-size: 22px; }
+      h1 { font-size: 23px; }
+      .result-box { font-size: 16px; }
       button { font-size: 16px; }
-      .result-box { font-size: 15px; }
     }
   </style>
 </head>
@@ -95,29 +140,65 @@
   </div>
 
   <script>
-    const monCanh = [
-  "Canh rau muống", "Canh chua cá lóc", "Canh bí đỏ thịt bằm", "Canh cua rau đay", "Canh khoai mỡ tôm",
-  "Canh cải xanh thịt bằm", "Canh bầu nấu tôm", "Canh mọc nấm", "Canh dưa chua thịt bò", "Canh sườn hầm củ cải",
-  "Canh nghêu nấu rau răm", "Canh tôm nấu bầu", "Canh trứng cà chua", "Canh bí xanh nấu gừng",
-  "Canh gà nấu nấm", "Canh đậu hũ rong biển", "Canh khoai tây cà rốt hầm xương", "Canh cá rô cải xanh",
-  "Canh cá diêu hồng nấu thơm", "Canh kim chi thịt bò"
-];
+   const monCanh = [
+    "Canh chua",
+    "Canh khổ qua",
+    "Canh bí đỏ",
+    "Canh rau bồ ngót",
+    "Canh rau dền",
+    "Canh mồng tơi",
+    "Canh củ tím",
+    "Canh bầu nấu tôm",
+    "Canh sườn nấu cải ngâm",
+    "Canh tập tàng",
+    "Canh cà bung",
+    "Canh cá nấu thơm cà",
+    "Canh măng vịt",
+    "Canh mẳn"
+  ];
 
-    const monMan = [
-  "Thịt kho trứng", "Cá kho tộ", "Gà xào sả ớt", "Tôm rang mặn", "Sườn rim mặn ngọt",
-  "Thịt heo chiên giòn", "Mực xào sa tế", "Đậu hũ chiên sốt cà", "Gà kho gừng", "Cá nục kho cà",
-  "Ba rọi rim mắm ruốc", "Sườn xào chua ngọt", "Thịt bò xào hành tây", "Mực chiên nước mắm",
-  "Chả cá sốt cà", "Cánh gà chiên giòn", "Tép rang dừa", "Cá basa chiên sả ớt",
-  "Trứng chiên thịt bằm", "Xíu mại sốt cà", "Thịt kho tiêu", "Cá thu kho thơm"
-];
+  const monMan = [
+    "Thịt kho tiêu",
+    "Thịt kho tàu",
+    "Cá basa kho gừng",
+    "Tôm chiên bột xù",
+    "Gà kho sả ớt",
+    "Cá ồ kho thịt",
+    "Cá chiên",
+    "Chả cá sốt cà chua",
+    "Đậu hũ nhồi thịt sốt cà",
+    "Vịt kho gừng",
+    "Gà chiên mắm",
+    "Thịt xá xíu",
+    "Sườn kho thơm",
+    "Cá hấp nước tương",
+    "Thịt nướng",
+    "Gà chiên bột",
+    "Mực nhồi thịt chiên",
+    "Tôm rim thịt"
+  ];
 
-    const monRau = [
-  "Rau muống xào tỏi", "Cải thìa xào dầu hào", "Đậu que xào thịt bằm", "Nấm xào bơ tỏi",
-  "Rau muống luộc", "Su su xào trứng", "Bông cải luộc", "Đậu bắp luộc",
-  "Cải xoong trộn dầu giấm", "Rau lang xào tỏi", "Bí xanh xào thịt", "Cải ngọt luộc",
-  "Bắp cải xào cà chua", "Rau củ thập cẩm xào", "Bông cải xào nấm", "Giá hẹ xào trứng",
-  "Salad trứng mayonnaise", "Rau má trộn thịt bò"
-];
+  const monRau = [
+    "Rau thập cẩm xào",
+    "Rau lang luộc",
+    "Rau muống xào tỏi",
+    "Đọt bí xào tỏi",
+    "Đậu que xào thịt",
+    "Rau sống",
+    "Cà nướng mỡ hành",
+    "Thịt xào măng",
+    "Thịt xào cải chua",
+    "Rau sâm luộc",
+    "Đu đủ luộc",
+    "Củ luộc",
+    "Bắp cải luộc",
+    "Cải xoong xào tỏi",
+    "Gỏi đu đủ tôm thịt",
+    "Gỏi tai heo",
+    "Gỏi gà",
+    "Xoài bằm nước mắm",
+    "Gan xào giá hẹ"
+  ];
 
     function randomNonRepeat(list, recent) {
       const filtered = list.filter(item => !recent.includes(item));
